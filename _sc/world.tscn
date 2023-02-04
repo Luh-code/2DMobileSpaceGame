@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx6aj5d8uq6ew"]
+
+[ext_resource type="PackedScene" uid="uid://ckywj2pik0yg" path="res://_sc/player.tscn" id="1_l4a1e"]
+[ext_resource type="PackedScene" uid="uid://dnrr611a1uh3g" path="res://entities/follow_cam.tscn" id="2_srhud"]
+
+[sub_resource type="Environment" id="Environment_hucpc"]
+background_mode = 3
+glow_enabled = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r115m"]
+lifetime_randomness = 0.25
+emission_shape = 3
+emission_box_extents = Vector3(750, 500, 1)
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -4.2
+initial_velocity_max = 4.54
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 2.56
+hue_variation_min = -0.08
+hue_variation_max = 0.36
+
+[sub_resource type="Curve2D" id="Curve2D_jk8pw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -260, -104, 0, 0, 0, 0, -282, 94, 0, 0, 0, 0, -103, -76, 0, 0, 0, 0, -65, 170)
+}
+point_count = 4
+
+[node name="World" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hucpc")
+
+[node name="FollowCam" parent="." node_paths=PackedStringArray("followNode") instance=ExtResource("2_srhud")]
+followNode = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("1_l4a1e")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+follow_viewport_scale = 0.758
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(1500, 1000)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(750, 500)
+amount = 76
+process_material = SubResource("ParticleProcessMaterial_r115m")
+lifetime = 25.51
+randomness = 0.09
+fixed_fps = 60
+visibility_rect = Rect2(-750, -500, 1500, 1000)
+local_coords = true
+trail_lifetime = 0.35
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1500, 1000)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(750, 500)
+amount = 76
+process_material = SubResource("ParticleProcessMaterial_r115m")
+lifetime = 25.51
+randomness = 0.09
+fixed_fps = 60
+visibility_rect = Rect2(-750, -500, 1500, 1000)
+local_coords = true
+trail_lifetime = 0.35
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1500, 1000)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(750, 500)
+amount = 76
+process_material = SubResource("ParticleProcessMaterial_r115m")
+lifetime = 25.51
+randomness = 0.09
+fixed_fps = 60
+visibility_rect = Rect2(-750, -500, 1500, 1000)
+local_coords = true
+trail_lifetime = 0.35
+
+[node name="Path2D" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_jk8pw")

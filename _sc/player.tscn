@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckywj2pik0yg"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_16o1o"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ln3ns"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8itln"]
+emission_shape = 1
+emission_sphere_radius = 7.34
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 8.44
+scale_max = 15.97
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eka1s"]
+radius = 15.1327
+
+[sub_resource type="SphereMesh" id="SphereMesh_dydnm"]
+radius = 15.3
+height = 30.6
+
+[sub_resource type="Curve" id="Curve_oq2ct"]
+_data = [Vector2(0, 0.697), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_fvmej"]
+curve = SubResource("Curve_oq2ct")
+
+[node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_ln3ns")
+gravity_scale = 0.0
+linear_damp = 6.345
+script = ExtResource("1_16o1o")
+sensitivity = 9.825
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_8itln")
+fixed_fps = 60
+trail_enabled = true
+trail_lifetime = 4.48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eka1s")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("SphereMesh_dydnm")
+texture = SubResource("CurveTexture_fvmej")

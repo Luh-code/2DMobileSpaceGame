@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnrr611a1uh3g"]
+
+[ext_resource type="Script" path="res://entities/follow_cam.gd" id="1_1mcwi"]
+[ext_resource type="Shader" path="res://shader/post.gdshader" id="1_7oud0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gfwcf"]
+shader = ExtResource("1_7oud0")
+shader_parameter/hdr_threshold = 0.141
+shader_parameter/bloom_stren = 0.133
+
+[node name="FollowCam" type="Camera2D"]
+current = true
+script = ExtResource("1_1mcwi")
+lerpSpeed = 3.857
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = 3526
+material = SubResource("ShaderMaterial_gfwcf")
+polygon = PackedVector2Array(-605, -354, -601, 350, 611, 344, 615, -356)
